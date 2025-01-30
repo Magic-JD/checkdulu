@@ -25,7 +25,7 @@ public class InfoController {
     public String getInformation(@PathParam("barcode") String barcode, @PathParam("amount") Optional<Double> amount, Model model){
         return infoService.getInfo(barcode).map(productInfo -> {
             model.addAttribute("productName", productInfo.name());
-            model.addAttribute("sugarPer100g", productInfo.sugarPerXg(amount.orElse(100d)));
+            model.addAttribute("sugarPerGivenAmount", productInfo.sugarPerXg(amount.orElse(100d)));
             return "product";
         }).orElse("none");
     }
