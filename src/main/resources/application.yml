@@ -1,0 +1,41 @@
+logging:
+  file:
+    path: ./data/logs
+  level:
+    root: TRACE
+  org:
+    springframework:
+      boot:
+        test:
+          context:
+            springboottestcontextbootstrapper: error
+      context:
+        support:
+          abstractcontextloader: off
+          annotationconfigcontextloaderutils: off
+        thymeleaf: error
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "|>|%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+threads:
+  virtual:
+    enabled: true
+
+spring:
+  config:
+    import: optional:file:project.env[.properties]
+
+thymeleaf:
+  mode: HTML
+  encoding: UTF-8
+  prefix: classpath:/templates/
+  suffix: .html
+
+fatsecret:
+  id: ${CLIENT_ID}
+  secret: ${CLIENT_SECRET}
+
+web:
+  resources:
+    static-locations: classpath:/static/,classpath:/public/,classpath:/resources/,classpath:/META-INF/resources/

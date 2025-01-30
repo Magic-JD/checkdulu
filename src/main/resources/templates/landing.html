@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<body class="background wrapper" id="mainBody">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/path-params.js"></script>
+    <title>Check Product Sugar</title>
+</head>
+<main>
+    <form onsubmit="return false;">
+        <input
+                type="text"
+                id="barcode"
+                placeholder="Enter the barcode"
+                name="barcode"
+        >
+        <input
+                type="number"
+                id="amount"
+                value="100"
+                name="amount"
+        >
+        <button
+                hx-get="/info"
+                hx-include="[name=barcode], [name=amount]"
+                hx-target="#results"
+                hx-trigger="click">
+            Submit
+        </button>
+    </form>
+    <div id="results">
+        <!-- Results from the server will load here -->
+    </div>
+</main>
+</body>
+</html>
+
