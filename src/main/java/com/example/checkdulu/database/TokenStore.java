@@ -1,6 +1,8 @@
 package com.example.checkdulu.database;
 
 import com.example.checkdulu.data.AccessToken;
+import com.example.checkdulu.exception.CheckDuluException;
+import com.example.checkdulu.exception.CheckDuluException.DatabaseException;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -22,7 +24,7 @@ public class TokenStore {
             """;
             stmt.execute(createTableSQL);
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to initialize database", e);
+            throw new DatabaseException("Failed to initialize database", e);
         }
     }
 
@@ -37,7 +39,7 @@ public class TokenStore {
             pstmt.setLong(2, accessToken.timeStamp());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to save token", e);
+            throw new DatabaseException("Failed to save token", e);
         }
     }
 
@@ -52,7 +54,7 @@ public class TokenStore {
                         rs.getString("access_token")));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to load token", e);
+            throw new DatabaseException("Failed to load token", e);
         }
 
         return Optional.empty();

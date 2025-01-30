@@ -1,19 +1,14 @@
 package com.example.checkdulu.controller;
 
-import com.example.checkdulu.data.InfoResponse;
-import com.example.checkdulu.data.ProductInfo;
 import com.example.checkdulu.service.InfoService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import jakarta.websocket.server.PathParam;
-import org.springframework.boot.Banner;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
-
-import static org.springframework.http.ResponseEntity.ok;
 
 @Controller
 @RequestMapping("info")
