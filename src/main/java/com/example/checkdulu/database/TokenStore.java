@@ -1,7 +1,6 @@
 package com.example.checkdulu.database;
 
 import com.example.checkdulu.data.AccessToken;
-import com.example.checkdulu.exception.CheckDuluException;
 import com.example.checkdulu.exception.CheckDuluException.DatabaseException;
 import org.springframework.stereotype.Component;
 

@@ -49,30 +49,6 @@ public class FatSecretClient {
         this.clientSecret = clientSecret;
     }
 
-    public InfoResponse callOpenFoodFacts(String barcode){
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(STR."https://world.openfoodfacts.org/api/v0/product/\{barcode}.json"))
-                .header(ACCEPT, APPLICATION_JSON)
-                .header(CONTENT_TYPE, APPLICATION_JSON)
-                .timeout(ofSeconds(5))
-                .GET()
-                .build();
-        HttpResponse<String> response = null;
-        try {
-            response = client.send(request, ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        int statusCode = response.statusCode();
-        if (statusCode == 200) { //Success response.
-            return gson.fromJson(response.body(), InfoResponse.class);
-        }
-        throw new RuntimeException();
-    }
-
-
 
     public Optional<InfoResponse> callExternalInfoService(String barcode){
         return callService(
@@ -156,5 +132,3 @@ record BarcodeResponse(FoodId food_id){}
 record FoodId(Integer value){}
 
 record TokenResponse(String access_token, int expires_in){}
-
-//{ "error": {"code": 21, "message": "Invalid IP address detected:  '101.128.98.142'" }}
