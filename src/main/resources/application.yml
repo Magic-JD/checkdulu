@@ -1,6 +1,6 @@
 logging:
   file:
-    path: ./data/logs
+    path: ./logs
   level:
     root: TRACE
   org:
