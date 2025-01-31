@@ -98,7 +98,25 @@
 				<version>3.0.0</version>
 				<configuration>
 					<argLine>--enable-preview</argLine>
+					<skipTests>${skip.ut}</skipTests>
 				</configuration>
+			</plugin>
+			<plugin>
+				<!-- run the integration tests -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<argLine>--enable-preview</argLine>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

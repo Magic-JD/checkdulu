@@ -19,7 +19,21 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Test with Maven
+        run: mvn test
+
+  integration-test:
+    name: Run Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Integration Test with Maven
         env:
           CLIENT_ID: MOCK_ID
           CLIENT_SECRET: MOCK_SECRET
-        run: mvn test
+        run: mvn -Dskip.ut=true verify
