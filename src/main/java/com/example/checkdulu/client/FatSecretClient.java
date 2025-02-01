@@ -1,5 +1,7 @@
 package com.example.checkdulu.client;
 
+import com.example.checkdulu.client.response.BarcodeResponse;
+import com.example.checkdulu.client.response.TokenResponse;
 import com.example.checkdulu.data.AccessToken;
 import com.example.checkdulu.data.InfoResponse;
 import com.example.checkdulu.database.TokenStore;
@@ -25,7 +27,6 @@ public class FatSecretClient {
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String AUTHORIZATION = "Authorization";
 
-    public static final String FATSECRET_COM = "https://platform.fatsecret.com";
 
     private final HttpClient client;
     private final Gson gson;
@@ -33,29 +34,36 @@ public class FatSecretClient {
 
     private final String clientId;
     private final String clientSecret;
+    private final String infoUrl;
+    private final String tokenUrl;
 
     public FatSecretClient(
             HttpClient client,
             Gson gson,
             TokenStore tokenStore,
             @Value("${fatsecret.id}") String clientId,
-            @Value("${fatsecret.secret}")String clientSecret) {
+            @Value("${fatsecret.secret}")String clientSecret,
+            @Value("${fatsecret.info-url}") String infoUrl,
+            @Value("${fatsecret.token-url}") String tokenUrl
+    ) {
         this.client = client;
         this.gson = gson;
         this.tokenStore = tokenStore;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.infoUrl = infoUrl;
+        this.tokenUrl = tokenUrl;
     }
 
 
     public Optional<InfoResponse> callExternalInfoService(String barcode){
         return callService(
-                STR."\{FATSECRET_COM}/rest/food/barcode/find-by-id/v1?barcode=\{barcode}&format=json",
+                STR."\{infoUrl}/rest/food/barcode/find-by-id/v1?barcode=\{barcode}&format=json",
                 BarcodeResponse.class,
                 BEARER_PREFIX + getAccessToken()
         ).filter(id -> id.food_id().value() != 0).flatMap(
                 bc -> callService(
-                        STR."\{FATSECRET_COM}/rest/food/v4?food_id=\{bc.food_id().value()}&format=json",
+                        STR."\{infoUrl}/rest/food/v4?food_id=\{bc.food_id().value()}&format=json",
                         InfoResponse.class,
                         BEARER_PREFIX + getAccessToken()
                 )
@@ -70,7 +78,7 @@ public class FatSecretClient {
     }
 
     private AccessToken updateToken() {
-        var tokenResponse = callServicePost("https://oauth.fatsecret.com/connect/token",
+        var tokenResponse = callServicePost(STR."\{tokenUrl}/connect/token",
                 TokenResponse.class,
                 STR."\{clientId}:\{clientSecret}")
                 .orElseThrow();
@@ -124,9 +132,4 @@ public class FatSecretClient {
         }
         return Optional.empty();
     }
-
 }
-record BarcodeResponse(FoodId food_id){}
-record FoodId(Integer value){}
-
-record TokenResponse(String access_token, int expires_in){}

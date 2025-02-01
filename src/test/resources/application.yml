@@ -2,7 +2,7 @@ logging:
   file:
     path: ./logs
   level:
-    root: TRACE
+    root: ERROR
   org:
     springframework:
       boot:
@@ -33,10 +33,10 @@ thymeleaf:
   suffix: .html
 
 fatsecret:
-  id: ${CLIENT_ID}
-  secret: ${CLIENT_SECRET}
-  info-url: https://platform.fatsecret.com
-  token-url: https://oauth.fatsecret.com
+  id: CLIENT_ID
+  secret: CLIENT_SECRET
+  info-url: http://localhost:8081
+  token-url: http://localhost:8081
 
 web:
   resources:

@@ -33,7 +33,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Integration Test with Maven
-        env:
-          CLIENT_ID: MOCK_ID
-          CLIENT_SECRET: MOCK_SECRET
         run: mvn -Dskip.ut=true verify
