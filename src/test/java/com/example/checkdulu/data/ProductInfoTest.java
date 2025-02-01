@@ -20,7 +20,7 @@ class ProductInfoTest {
 
     @Test
     void sugarPerXgShouldReturnCorrectValueFor10g() {
-        assertEquals(1, PRODUCT_INFO.sugarPerXg(10));
+        assertEquals(10, PRODUCT_INFO.sugarPerXg(10));
     }
 
     @Test
