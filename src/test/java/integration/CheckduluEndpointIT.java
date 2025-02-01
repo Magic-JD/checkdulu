@@ -60,7 +60,6 @@ class CheckduluEndpointIT {
 	}
 	@Test
 	void shouldShowDetailsWhenServiceIsCalledWithBarcode() throws Exception {
-		//Thread.sleep(Duration.ofDays(1));
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("HX-Request", "true");
 		MockHttpServletResponse response = mockMvc.perform(get("/info")
