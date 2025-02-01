@@ -2,7 +2,6 @@ package com.example.checkdulu.controller;
 
 import com.example.checkdulu.service.InfoService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
-import jakarta.websocket.server.PathParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
